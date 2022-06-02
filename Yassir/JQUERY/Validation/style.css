@@ -24,15 +24,16 @@ form{
 .in{
     padding: 11px;
     width: 80%;
-    border:1px solid rgba(96, 202, 140, 0.767);
+    border:1px solid rgba(96, 202, 140, 0.377);
     border-radius: 8px;
 }
 .in:focus{
     border: none;
 }
 textarea{
-    border:1px solid rgba(96, 202, 140, 0.767);
+    border:1px solid rgba(96, 202, 140, 0.349);
     padding: 10px;
+    border-radius: 5px;
 }
 textarea:focus{
     border: none;
