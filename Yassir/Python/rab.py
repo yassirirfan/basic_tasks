@@ -1,59 +1,38 @@
 import random
 import re
 
-def genRand(): #Function to generate a random number within range [0000 - 9999]
+def genRand():    
     r = ''
-    for i in range(4):
-        r += str(random.randrange(0, 10))
+    for i in range(4):r += str(random.randrange(0, 10))
     return r
-
-rand = genRand() #Global Variable
-
+rand = genRand()  
 while True:
-    win = 0
+    win = False
     user_input = input("Enter a guess: ")
     user_num = ''.join(re.findall('[0-9]+',user_input))
+    print("Computer Generated number is : ",rand) 
 
-    if len(user_input) > 5 or len(user_num) != 4:
+    if len(user_input) > 5 or len(user_num) != 4 or len(user_input) == 5 and user_input[0] not in ('+','-'):
         print('Invalid Input')
-        continue
-    elif len(user_input) == 5 and user_input[0] not in ('+','-'):
-        print('invalid Input')
         continue
     elif user_num == rand:
         print("WINNER !")
-        win = 1    
+        win = True    
+    else: 
+        tortCount,rabs = 0,[]  
+        for k in range(4):
+            d1,d2 = user_num[k],rand[k]
+            if d1 == d2: rabs.append(k)
+        if len(rabs) >  0: print("You got rabbit {0} time(s) !".format(len(rabs)))
+        for i in range(4):
+            if user_num[i] in rand: 
+                if i not in rabs: tortCount += 1
+        if tortCount > 0: print("You have got tortoise {0} times ".format(tortCount))
 
-    if len(user_num) == 4 and win != 1: #Rabbit Section  --> [Same Number in Same Position] [23 - 36]
-        temp1 = rand
-        temp2 = user_num
-        pos_count = 0
-        i = -1
-        l1 = 4
-        while l1 != 0 and win != 1:
-            d1 = temp1[i]
-            d2 = temp2[i]
-            if(d1 == d2): pos_count += 1
-            l1 -= 1
-            i -= 1
-        if(pos_count >  0): print("You got rabbit {0} time(s) !".format(pos_count))
-
-        t_temp = user_num #Tortoise section --> [Guessed Number has a number same somewhere in Random Num] [39 - 47]
-        j = -1
-        l2 = 4
-        count = 0
-        while l2 != 0 :
-            if(t_temp[j]  in rand):count += 1
-            l2 -= 1
-            j -= 1
-        if count > 0 : print("You have got tortoise {0} times".format(count))
-
-    print("Computer Generated number was : ",rand) #Test section inorder to track program efficiency --> [Not Necessary] [49]
-
+    if tortCount == 0 and len(rabs) == 0: print("Sorry You got Nothing")
     ch = input("Do you want to continue ? (y/n) ")
     while ch not in ('y','n'): 
         print("Invalid, Please enter either y or n")
-        ch = input("Do you want to continue ? (y/n) ")
-        
-    if ch == 'n' : break
-    if ch == 'y' and win == 1:rand = genRand()
+        ch = input("Do you want to continue ? (y/n)")        
+    if ch == 'y' and win: rand = genRand()
+    elif ch == 'n': break

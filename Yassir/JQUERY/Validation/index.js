@@ -6,6 +6,14 @@ $(() => {
         return /^[A-Za-z0-9\d=!\-@._*]*$/.test(value) && /[a-z]/.test(value) && /\d/.test(value) && /[A-Z]/.test(value) && /\W|_/g.test(value);
     },"The password must contain at least 1 number, at least 1 lower case and upper case letters"); 
 
+    $.validator.addMethod("onlyLetters", (value) => {
+        return /^[a-zA-Z]+$/.test(value)
+    },"Name should only contain letters" )
+
+    $.validator.addMethod("olderEnough", (value) => {
+        return value >= 12
+    },"Sorry you aren't older enough" )
+
     $("#togglePassword").click(() => {
         if($("#pas1").attr("type") === "password" )$('#pas1').attr('type','text') 
         else $('#pas1').attr('type','password');
@@ -22,12 +30,13 @@ $(() => {
     $('#dbox').blur(() => { 
         $('#ageBox').val(setDob());
     });
-
+    
     $('#frm').validate({ 
         rules: {
             name: {
                 required: true,
-                minlength: 3
+                minlength: 3,
+                onlyLetters:true
             },
             email: {
                 required: true,
@@ -41,21 +50,24 @@ $(() => {
             password_confirm: {
                 required: true,
                 minlength: 8,
-                equalTo: "#pas1"
+                equalTo : "#pas1"
             },
             address:{
                 minlength:15,
                 required:true
             },
             dob:{
-                required:true,
+                required:true
+            },
+            age:{
+                olderEnough:true
             }
         },
         messages:{
                name:{required: 'Please enter your name'},
                email: {required: 'Please enter correct email'},
                password:{required: 'Please enter your Password'},
-               password_confirm:{equalTo:'Passwords donot match'},
+               password_confirm:{required:"Please confirm your password",equalTo:'Passwords donot match'},
                dob:{required:"Please Provide your DOB"},
                address:{minlength:"Please Enter valid Address"}
         },
