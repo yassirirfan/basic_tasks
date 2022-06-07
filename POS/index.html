@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CybroPOS</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;500&display=swap" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" ></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.4/jquery.validate.min.js" ></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <h2 id="products" class="main-head">Add Product</h2>
+            <h2 id="customers" class="main-head">Add Customer</h2>
+            <h2 id="invoices" class="main-head">Generate Invoice</h2>
+        </div>
+    </div>
+
+    <div class="popup product">
+        <div class="add new-product">
+            <form id="form" action="">
+                <h3 class="close">X</h3>
+                <h1 id="add-head">Add Product</h1>
+                <label for="barcode">Barcode:</label><div class="element"> <input type="number" name="Barcode"></div>
+                <label for="barcode">Product Name:</label><div class="element"> <input type="text" name="Product"></div>
+                <label for="barcode">Brand:</label><div class="element"> <input type="text" name="Brand"></div>
+                <label for="quantity">Quantity:</label><div class="element"> <input type="number" name="Quantity" required></div>
+                <label for="parice">Price:</label> <div class="element"><input type="number" name="price" id="Price" required></div>
+                <div class="btns">
+                    <button class="btn-add" type="submit" id="add-to-list">Add</button>
+                    <button class="btn-add" type="reset">Add another</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="popup invoice">
+        <div class="add new-invoice">
+            <form id="form" action="">
+                <h3 class="close">X</h3>
+                <h1 id="add-head">Generate Invoice</h1>
+
+                <label for="Customer">Customer:</label>
+                <div class="element"><select name="customer" id="">
+                    <option value="hello">Hello</option>
+                </select> </div>
+                <label for="phone">Phone:</label>
+                <div class="element"><input type="number" name="phone" id=""></div>
+                <label for="product">Product</label>
+                <div class="element"><select name="product" id="">
+                    <option value="">Product</option>
+                </select> </div>
+                <label for="quantity">Quantity</label>
+                <div class="element"><input type="number" name="quantity" id=""></div>
+                <div class="btns">
+                    <button class="btn-add" type="submit" id="add-to-list">Proceed to Bill</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</body>
+    <script src="index.js"></script>
+</html>
