@@ -3,23 +3,21 @@
     font-family: 'Quicksand', sans-serif;
 }
 .container{
-    width:70%;
+    width:600px;
     margin:10% auto;
     padding: 6%;
     background-color: #fff;
     box-shadow: 8px 8px 5px 10px #f1f0f0e5;
 }
-#logo{
-    width: 150px;
-}
 .row{
-    display: flex;
     margin: 0 auto;
+    display: flex;
 }
 .main-head{
-    margin-right: 50px;
+    margin: 0 auto;
     background-color:#ff5349;
     padding: 30px;
+    max-width: 130px;
     border-radius: 5px;
     color: rgb(252, 230, 230);
     cursor: pointer;
@@ -54,13 +52,29 @@ label{
     margin-left: 20px;
     font-size: 17px;
 }
-.popup-product{
+select{
+    padding: 12px;
+    width: 92%;
+    background: none;
+    border: 1px  solid rgba(78, 78, 78, 0.37);
+    border-radius: 5px;
+}
+.product{
+    top: 0;
     font-family: 'Poppins', sans-serif;
     background-color: rgb(0, 0, 0,0.6);
     height: 100%;
     width: 100%;
     position:absolute;
-    top: 0;
+    display: none;
+}
+.invoice{
+    top:0;
+    font-family: 'Poppins', sans-serif;
+    background-color: rgb(0, 0, 0,0.6);
+    height: 100%;
+    width: 100%;
+    position:absolute;
     display: none;
 }
 .btn-add{
@@ -94,12 +108,12 @@ label{
     border: none;
     background-color: rgb(78, 78, 78);
     color:#fff
-
 }
-.add-product{
+.add{
     margin: 50px auto;
 }
-#add-form{
+#form{
+    margin: 0 auto;
     width: 420px;
     background: #fff;
     padding: 30px;
