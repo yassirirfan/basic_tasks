@@ -1,6 +1,7 @@
 $(() => {
 
-    let products = []
+    var products_arr = [["Benz","Mercedes","50","2500"],["Polo","Volkwagon","70","5000"]]
+    var customers_arr = [["Yassir","8156961606","21","Kerala"],["Faiz","8156961556","20","Kerala"]]
 
     $('#products').click( (e) => {
         e.preventDefault();
@@ -9,26 +10,102 @@ $(() => {
 
     $('#invoices').click((e) => {
         e.preventDefault();
+
+        for(let c = 0; c < customers_arr.length; c++){ 
+            $('#invoice-select-customer').append($("<option></option>").text(customers_arr[c][0])); 
+        }
+
+        for(let p = 0; p < products_arr.length; p++){ 
+            $('#invoice-select-product').append($("<option></option>").text(products_arr[p][0])); 
+        }
+
+
         $('.invoice').fadeIn('fast');
+
+        $('.invoice-customer').change(function (e) { 
+            let customer_name = $('.invoice-customer').val()
+            console.log(customer_name)
+            e.preventDefault();
+            for (let i = 0; i< customers_arr.length; i++){
+                if (customers_arr[i][0] == customer_name){
+                    $('#cust-phone').val(customers_arr[i][1])
+                    break;
+                }
+            }
+        }); 
+
+
+       $('.invoice-product').change(function (e) { 
+            let product_name = $('.invoice-product').val()
+            console.log(product_name)
+            e.preventDefault();
+        }); 
+
+
+        
+
+
+    });
+
+
+    $('#customers').click((e) => {
+        e.preventDefault();
+        $('.customer').fadeIn('fast');
+
     });
 
     $('.close').click((e) => { 
         e.preventDefault();
         $('.popup').css('display','none')
+        $('.message').css('display','none')
     });
 
-    $('#add-to-list').click((e) => {
+    $('#add-another').click((e) => {
+        $('.message').css('display','none')
+    })
+
+    $('#add-to-products').click((e) => {
         e.preventDefault();
-        data = $('#add-form').serializeArray();
+        data = $('#product-form').serializeArray();
+        temp = []
+        data.map((i) => {temp.push(i.value)})
+        products_arr.push(temp)
+
+        $('.product-message').text(temp[0] + ' Successfully added to Products')
+        $('.product-message').fadeIn('slow')
+
+    });
+
+    $('#add-to-customers').click((e) => {
+        e.preventDefault();
+        data = $('#customer-form').serializeArray();
         temp = []
         data.map((i) => {temp.push(i.value)})
 
-        products.push(temp)
-        console.log(products)
+        customers_arr.push(temp)
+        $('.customer-message').text('Added ' + temp[0] + ' to customers successfully')
+        $('.customer-message').fadeIn('slow')
+
     });
 
     $('.close').click((e) => {
         e.preventDefault();
         $('.popup-container').css('display', 'none');
     })
+
+   
 })
+
+
+$('.btn-add-row').on('click', () => {
+  const $lastRow = $('.item:last');
+  const $newRow = $lastRow.clone();
+
+  $newRow.find('input').val('');
+  $newRow.find('td:last').text('0');
+  $newRow.insertAfter($lastRow);
+
+  $newRow.find('input:first').focus();
+});
+
+
