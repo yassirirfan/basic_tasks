@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CybroPOS</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;500&display=swap" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" ></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.4/jquery.validate.min.js" ></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <h2 id="products" class="main-head">Add Product</h2>
+            <h2 id="customers" class="main-head">Add Customer</h2>
+            <h2 id="invoices" class="main-head">Generate Invoice</h2>
+        </div>
+    </div>
+
+    <div class="popup product">
+        <div class="add new-product">
+            <form id="product-form" action="">
+                <div class="product-message message"></div>
+                <h3 class="close">X</h3>
+                <h1 id="add-head">Add Product</h1>
+                <label for="barcode">Product Name:</label><div class="element"> <input type="text" name="Product"></div>
+                <label for="barcode">Brand:</label><div class="element"> <input type="text" name="Brand"></div>
+                <label for="quantity">Quantity:</label><div class="element"> <input type="number" name="Quantity" required></div>
+                <label for="parice">Price:</label> <div class="element"><input type="number" name="price" id="Price" required></div>
+                <div class="btns">
+                    <button class="btn-add" type="submit" id="add-to-products">Add</button>
+                    <button class="btn-add" type="reset" id="add-another">Add another</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+    <div class="popup customer">
+        <div class="add new-customer">
+            <form id="customer-form" action="">
+                <div class="customer-message message"></div>
+                <h3 class="close">X</h3>
+                <h1 id="add-head">Add Customer</h1>
+                <label for="cust-name">Name:</label>
+                <div class="element"><input type="text" name="cust-name" id="cust-name"></div>
+                <label for="cust-name">Phone:</label>
+                <div class="element"><input type="text" name="cust-phone" id="phone" ></div>
+                <label for="cust-name">Age:</label>
+                <div class="element"><input type="number" name="cust-age" id="cust-age"></div>
+                <label for="cust-name">State:</label>
+                <div class="element"><input type="text" name="cust-state" id="cust-star"></div>
+                <div class="btns">
+                    <button class="btn-add" type="submit" id="add-to-customers">Add</button>
+                    <button class="btn-add" type="reset" id="add-another">Add another</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <datalist name="select-customer" id="invoice-select-customer"></datalist>
+    <datalist name="select-product" id="invoice-select-product"></datalist>
+
+    <div class="popup invoice">
+        <div class="invoice-box">
+            <h3 class="close">X</h3>
+            <table cellpadding="0" cellspacing="0">
+              <tr class="top">
+                <td colspan="4">
+                  <table>
+                    <tr>
+                      <td class="title">
+                        <img src="https://www.images.cybrosys.com/images/logo.png" style="width:100%; max-width:300px;">
+                      </td>
+          
+                      <td>
+                        Invoice #: 123<br> Created: January 1, 2015<br> Due: February 1, 2015
+                      </td>
+                    </tr>
+                  </table>
+                </td>
+              </tr>
+          
+              <tr class="information">
+                <td colspan="4">
+                  <table>
+                    <tr>
+                      <td>
+                        Sparksuite, Inc.<br> 12345 Sunny Road<br> Sunnyville, CA 12345
+                      </td>
+          
+                      <td>
+                        Acme Corp.<br> John Doe<br> john@example.com
+                      </td>
+                    </tr>
+                  </table>
+                </td>
+              </tr>
+          
+              <tr>
+                <td>
+                  <div class="element invoice-select-customer-element">
+                    <input type="text" class="invoice-customer" list="invoice-select-customer" placeholder="Customer Name" />
+                  </div>
+                </td>
+                <td>Phone: <input type="text" id="cust-phone" readonly></td>
+              </tr>
+              <tr class="heading">
+                <td>Item</td>
+                <td>Unit Cost</td>
+                <td>Quantity</td>
+                <td>Price</td>
+              </tr>
+              
+              <tr class="item">
+                <td>
+                  <div class="element invoice-select-product-element">
+                    <input type="text" class="invoice-product" list="invoice-select-product" placeholder="Product Name" />
+                  </div>
+                </td>
+                <td>₹<input type="text" id="" value="" readonly/></td>
+                <td><input type="number" value="0" id="invoice-quantity" /></td>
+                <td id="price">0</td>
+              </tr>
+          
+              <tr>
+                  <td colspan="4"><button class="btn-add-row">Add product</button></td>
+              </tr>
+          
+              <tr class="total">
+                <td colspan="3"></td>
+                <td id="total"> 0 </td>
+              </tr>
+        
+            </table>
+          </div>
+    </div>
+
+</body>
+    <script src="index.js"></script>
+</html>
