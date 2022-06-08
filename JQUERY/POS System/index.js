@@ -38,7 +38,12 @@ $(() => {
        $('.invoice-product').change(function (e) { 
             let product_name = $('.invoice-product').val()
             console.log(product_name)
-            e.preventDefault();
+            for (let i = 0; i< products_arr.length; i++){
+                if (products_arr[i][0] == product_name){
+                    $('#unit-price').val(products_arr[i][3])
+                    break;
+                }
+            }
         }); 
 
 
@@ -93,19 +98,33 @@ $(() => {
         $('.popup-container').css('display', 'none');
     })
 
+
+    $('.btn-add-row').on('click', () => {
+        const $lastRow = $('.item:last');
+        const $newRow = $lastRow.clone();
+      
+        $newRow.find('input').val('');
+        $newRow.find('td:last').text('0');
+        $newRow.insertAfter($lastRow);
+      
+        var newOne = $newRow.find('input:first').focus();
+      
+        $(newOne).change(function (e) { 
+          let product_name = $(newOne).val()
+          console.log(product_name)
+          for (let i = 0; i< products_arr.length; i++){
+              if (products_arr[i][0] == product_name){
+                  console.log(newOne.parent())
+                  break;
+              }
+          }
+        });
+      
+      });
    
 })
 
 
-$('.btn-add-row').on('click', () => {
-  const $lastRow = $('.item:last');
-  const $newRow = $lastRow.clone();
 
-  $newRow.find('input').val('');
-  $newRow.find('td:last').text('0');
-  $newRow.insertAfter($lastRow);
-
-  $newRow.find('input:first').focus();
-});
 
 
