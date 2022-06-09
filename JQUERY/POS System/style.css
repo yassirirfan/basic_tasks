@@ -26,8 +26,6 @@
   color:#ff5349; 
   background-color: azure;
 }
-
-/*---*/
 #add-head{
   margin-top: -35px;
   margin-bottom: 25px;
@@ -79,10 +77,32 @@ select{
   background: none;
   color: rgb(10, 173, 160)
 }
+.btn-rem{
+  padding: 8px;
+  color: white;
+  border: 1px solid rgba(210, 9, 9, 0.429);
+  font-weight: 600;
+  border-radius: 2px;
+  margin-bottom: 10px;
+  cursor: pointer;
+  font-size: 17px;
+  margin-left: 20px;
+  background: none;
+  color: rgb(243, 18, 18)
+}
 .btn-add:hover{
   background-color: rgb(10, 173, 160);
   color: #fff;
 }
+.btn-rem:hover{
+  background-color: #ff5349;
+  color: #fff;
+}
+.btn-another{
+  border: 1px solid rgb(252, 211, 29);
+  color: rgb(253, 179, 6);
+}
+.btn-another:hover{background-color:rgb(253, 179, 6) ;}
 .close{
   width: 25px;
   padding: 4px;
@@ -98,9 +118,7 @@ select{
   background-color: rgb(78, 78, 78);
   color:#fff
 }
-.add{
-  margin: 50px auto;
-}
+.add{ margin: 50px auto;}
 #product-form, #invoice-form, #customer-form{
   margin: 0 auto;
   width: 420px;
@@ -108,9 +126,7 @@ select{
   padding: 30px;
   border-radius: 3px;
 }
-.btns{
-  margin-top: 30px;
-}
+.btns{ margin-top: 30px; }
 .message{
   text-align: center;
   width: 85%;
@@ -131,9 +147,7 @@ select{
   margin-top: 50px;
   border-radius: 4px;
 }
-#bill{
-  width: 100%;
-}
+#bill{ width: 100%; }
 #bill td{
   width: 80px;
   border-bottom: 1px solid rgba(0, 0, 0, 0.151);
@@ -151,12 +165,8 @@ select{
   font-weight: 100;
   color: rgba(0, 0, 0, 0.747);
 }
-#invoice-head{
-  margin-bottom: 10px;
-}
-#billTo{
-  margin-bottom: 30px;
-}
+#invoice-head{ margin-bottom: 10px; }
+#billTo{ margin-bottom: 30px; }
 #billTo span{font-size: 15px;}
 #date{
   font-size: 13px;
