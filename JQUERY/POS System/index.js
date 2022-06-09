@@ -1,62 +1,71 @@
 $(() => {
 
-    var products_arr = [["Benz","Mercedes","50","2500"],["Polo","Volkwagon","70","5000"]]
-    var customers_arr = [["Yassir","8156961606","21","Kerala"],["Faiz","8156961556","20","Kerala"]]
+    var products_obj = {
+        'Apple Iphone X': 75000,
+        'Oneplus Nord 2 5G' : 29000,
+        'Samsung Galaxy S21' : 68000,
+        'Redmi Note 10 Pro' : 35000,
+        'Asus ROG 4' : 43000
+    }
+    var customers_obj = {
+        'Suhail M': '8156961606',
+        'Jafar K' :'81965695585',
+        'Manoj Mundasseri' : '946585120',
+        'Midhun K' : '8653959612'
+    }
 
-    $('#products').click( (e) => {
-        e.preventDefault();
-        $('.product').fadeIn('fast');
-    });
+    var invoice = []
 
-    $('#invoices').click((e) => {
-        e.preventDefault();
+    $('#products').click( () => {$('.product').fadeIn('fast');});
 
-        for(let c = 0; c < customers_arr.length; c++){ 
-            $('#invoice-select-customer').append($("<option></option>").text(customers_arr[c][0])); 
+    $('#invoices').click(() => {
+        for (let key in products_obj){
+            $('#invoice-new-product').append($("<option></option>").text(key));
         }
-
-        for(let p = 0; p < products_arr.length; p++){ 
-            $('#invoice-select-product').append($("<option></option>").text(products_arr[p][0])); 
+        for (let key in customers_obj){
+            $('#invoice-new-customer').append($("<option></option>").text(key));
         }
-
-
         $('.invoice').fadeIn('fast');
 
-        $('.invoice-customer').change(function (e) { 
-            let customer_name = $('.invoice-customer').val()
-            console.log(customer_name)
-            e.preventDefault();
-            for (let i = 0; i< customers_arr.length; i++){
-                if (customers_arr[i][0] == customer_name){
-                    $('#cust-phone').val(customers_arr[i][1])
-                    break;
-                }
-            }
-        }); 
+    })
 
-
-       $('.invoice-product').change(function (e) { 
-            let product_name = $('.invoice-product').val()
-            console.log(product_name)
-            for (let i = 0; i< products_arr.length; i++){
-                if (products_arr[i][0] == product_name){
-                    $('#unit-price').val(products_arr[i][3])
-                    break;
-                }
-            }
-        }); 
-
-
+    $('#invoice-new-customer').change( (e) => { 
+        $('#cust').text($('#invoice-new-customer').val())
         
-
-
     });
+
+
+
+    $('#add-to-invoice').click((e) => {
+        e.preventDefault()
+        if($('#qty').val() == ''  || $('#qty').val() == '0' ){
+            alert("Quantity Cannot be Null or Zero")
+        }
+        else{
+            let product = $('#invoice-new-product').val()
+            let sub_total = parseInt($('#qty').val()) * products_obj[product]
+            //delete products_objproduct;
+            let bill = [product, sub_total ]
+    
+            if(products_obj[product]){
+                invoice.push(bill)
+                let content ='<td>' + product + '</td>' + '<td>'+ products_obj[product] + '</td>' + '<td>' + $('#qty').val()+ '</td>' + '<td>' + sub_total + '</td>'
+                $('#bill').append("<tr class='list'>" + content  + "</tr>");
+            }
+            else{
+                alert("No Item Selected or Item Already Selected")
+            }
+    
+            delete products_obj[product]
+        }
+
+    })
+
 
 
     $('#customers').click((e) => {
         e.preventDefault();
         $('.customer').fadeIn('fast');
-
     });
 
     $('.close').click((e) => { 
@@ -71,26 +80,51 @@ $(() => {
 
     $('#add-to-products').click((e) => {
         e.preventDefault();
+        if ($('#product-name').val().length == 0 || $('#unit-price').val().length == 0){
+            alert('Fields Cannot be empty')
+        }
         data = $('#product-form').serializeArray();
-        temp = []
-        data.map((i) => {temp.push(i.value)})
-        products_arr.push(temp)
-
-        $('.product-message').text(temp[0] + ' Successfully added to Products')
-        $('.product-message').fadeIn('slow')
-
+        if (products_obj.hasOwnProperty(data[0].value)){alert("Product already Exists")}
+        else {
+            products_obj[data[0].value] = parseInt(data[1].value)
+            
+        }
     });
 
     $('#add-to-customers').click((e) => {
         e.preventDefault();
-        data = $('#customer-form').serializeArray();
-        temp = []
-        data.map((i) => {temp.push(i.value)})
+        console.log()
+        if ($('#cust-name').val().length == 0 || $('#phone').val().length == 0){
+            alert('Fields Cannot be empty')
+        }
+        else{
+            data = $('#customer-form').serializeArray();
+            if (customers_obj.hasOwnProperty(data[0].value)){alert("Customer already Exists")}
+            else {
+                customers_obj[data[0].value] = parseInt(data[1].value)
+                $('.customer-message').text('Customer Added Successfully')
+                $('.customer-message').fadeIn('slow')
+            }
+        }
 
-        customers_arr.push(temp)
-        $('.customer-message').text('Added ' + temp[0] + ' to customers successfully')
-        $('.customer-message').fadeIn('slow')
 
+    });
+
+    $('#gen-invoice').click( (e) => { 
+        e.preventDefault();
+        var datetime = new Date().toLocaleString();
+        let total = 0;
+        if(invoice.length == 0){
+            alert("You haven't selected any product")
+        }
+        else{
+            invoice.map((prod) => {
+                total += prod[1]
+            })
+            $('#total-price').text(total)
+            $('#date-time').text(datetime)
+        }
+        
     });
 
     $('.close').click((e) => {
@@ -99,32 +133,5 @@ $(() => {
     })
 
 
-    $('.btn-add-row').on('click', () => {
-        const $lastRow = $('.item:last');
-        const $newRow = $lastRow.clone();
-      
-        $newRow.find('input').val('');
-        $newRow.find('td:last').text('0');
-        $newRow.insertAfter($lastRow);
-      
-        var newOne = $newRow.find('input:first').focus();
-      
-        $(newOne).change(function (e) { 
-          let product_name = $(newOne).val()
-          console.log(product_name)
-          for (let i = 0; i< products_arr.length; i++){
-              if (products_arr[i][0] == product_name){
-                  console.log(newOne.parent())
-                  break;
-              }
-          }
-        });
-      
-      });
-   
+ 
 })
-
-
-
-
-
