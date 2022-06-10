@@ -14,72 +14,30 @@ $(() => {
         'Midhun K' : '8653959612'
     }
 
-    let temp = {
-
-    }
-
+    let temp = {}
     let invoice = []
-    function calcTotal(){
+
+    function calcTotal() {
         let total = 0;
-        invoice.map( (prod) => {total += prod[1]} )
+        invoice.map( (prod) => { total += prod[1] } )
         return total
     }
 
-    $('#products').click( () => {$('.product').fadeIn('fast');});
+    $('#customers').click(() => { $('.customer').fadeIn('fast'); });
+    $('#products').click( () => { $('.product').fadeIn('fast');} );
+    $('.close').click(() => { $('.popup-container').css('display', 'none'); })
+    $('#invoice-new-customer').change( (e) => {  $('#cust').text($('#invoice-new-customer').val())});
+    $('#add-another').click( () => { $('.message').css('display','none') } )
 
     $('#invoices').click(() => {
         for (let key in products_obj){ $('#invoice-new-product').append($("<option></option>").text(key)); }
         for (let key in customers_obj){ $('#invoice-new-customer').append($("<option></option>").text(key)); }
         $('.invoice').fadeIn('fast');
-
-    })
-
-    $('#invoice-new-customer').change( (e) => {  $('#cust').text($('#invoice-new-customer').val())});
-
-    $('#add-to-invoice').click((e) => {
-        e.preventDefault()
-        if($('#qty').val() == ''  || $('#qty').val() == '0' ){ alert("Quantity Cannot be Null or Zero") }
-        else{
-            let product = $('#invoice-new-product').val()
-            let sub_total = parseInt($('#qty').val()) * products_obj[product]
-            let bill = [product, sub_total ]
-            
-            console.log(products_obj)
-            if(!temp[product]){
-                invoice.push(bill)
-                let content =`<td>${product}</td><td>${products_obj[product]}</td><td>${$('#qty').val()}</td><td>${sub_total}</td>`
-                $('#bill').append("<tr class='list'>" + content  + "</tr>");
-            }
-            else{ alert("No Item Selected or Item Already Selected") }
-            temp[product] = products_obj[product]
-        }
-    })
-
-    $('#customers').click((e) => {
-        e.preventDefault();
-        $('.customer').fadeIn('fast');
     });
 
-    $('.close').click((e) => { 
-        e.preventDefault();
+    $('.close').click(() => { 
         $('.popup').css('display','none')
         $('.message').css('display','none')
-        invoice = []
-    });
-
-    $('#add-another').click((e) => { $('.message').css('display','none') })
-
-    $('#rem-invoice').click(function (e) { 
-        e.preventDefault();
-        if (invoice.length > 0){
-            $('#bill tr:last').remove()
-            delete temp[invoice[invoice.length-1][0]]
-            invoice.pop()
-            $('#total-price').text(calcTotal())
-        }else{ alert('No Items in Invoice') }
-    });
-
-    $('#new-invoice').click(function () { 
         invoice = []
     });
 
@@ -101,8 +59,7 @@ $(() => {
         e.preventDefault();
         if ($('#cust-name').val().length == 0 || $('#phone').val().length == 0){
             alert('Fields Cannot be empty')
-        }
-        else{
+        }else{
             data = $('#customer-form').serializeArray();
             if (customers_obj.hasOwnProperty(data[0].value)){alert("Customer already Exists")}
             else {
@@ -111,6 +68,33 @@ $(() => {
                 $('.customer-message').fadeIn('slow')
             }
         }
+    });
+
+    $('#add-to-invoice').click((e) => {
+        e.preventDefault()
+        if($('#qty').val() == ''  || $('#qty').val() == '0' ){ alert("Quantity Cannot be Null or Zero") }
+        else{
+            let product = $('#invoice-new-product').val()
+            let sub_total = parseInt($('#qty').val()) * products_obj[product]
+            let bill = [product, sub_total ]
+            
+            if(!temp[product]){
+                invoice.push(bill)
+                let content =`<td>${product}</td><td>${products_obj[product]}</td><td>${$('#qty').val()}</td><td>${sub_total}</td>`
+                $('#bill').append("<tr class='list'>" + content  + "</tr>");
+            } else{ alert("No Item Selected or Item Already Selected") }
+            temp[product] = products_obj[product]
+        }
+    })
+
+    $('#rem-invoice').click(function (e) { 
+        e.preventDefault();
+        if (invoice.length > 0){
+            $('#bill tr:last').remove()
+            delete temp[invoice[invoice.length-1][0]]
+            invoice.pop()
+            $('#total-price').text(calcTotal())
+        }else{ alert('No Items in Invoice') }
     });
 
     $('#gen-invoice').click( (e) => { 
@@ -124,8 +108,14 @@ $(() => {
         
     });
 
-    $('.close').click((e) => {
-        e.preventDefault();
-        $('.popup-container').css('display', 'none');
-    })
+    $('#new-invoice').click( () => { 
+        invoice = []
+        let rowCount = $('#bill >tbody >tr').length;
+        if(rowCount > 1){
+            for(let i = rowCount; i > 1; i--){ $("table tr:last").remove();}
+            $('#total-price').text(0)
+            $('#cust').text('')
+            $('#date-time').text('')
+        }else{ alert("invoice is Empty") }
+    });
 })

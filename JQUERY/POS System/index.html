@@ -8,8 +8,6 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;500&display=swap" rel="stylesheet">
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js" ></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.4/jquery.validate.min.js" ></script>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -38,7 +36,6 @@
         </div>
     </div>
 
-
     <div class="popup customer">
         <div class="add new-customer">
             <form id="customer-form" action="">
@@ -58,9 +55,7 @@
     </div>
 
     <div class="popup invoice">
-
       <div class="add new-item">
-
         <form id="invoice-form" action="" autocomplete="off">
           <div class="customer-message message"></div>
           <h3 class="close">X</h3>
@@ -84,8 +79,6 @@
           <button class="btn-rem"  id="rem-invoice">Remove Product</button>
           <button class="btn-add" type="submit" id="gen-invoice">Generate Bill</button>
           <button class="btn-add btn-another" type="reset" id="new-invoice">Generate Another</button>
-          
-
         </form>
       </div>
 
@@ -108,9 +101,10 @@
           Total:  <span id="total-price"> 0 </span>
         </div>
       </div>
-
     </div>
 
 </body>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.4/jquery.validate.min.js"></script>
     <script src="index.js"></script>
 </html>
