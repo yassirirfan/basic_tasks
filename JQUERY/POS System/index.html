@@ -23,7 +23,8 @@
     <div class="popup product">
         <div class="add new-product">
             <form id="product-form" action="">
-                <div class="product-message message"></div>
+                <div class="product-message success-message"></div>
+                <div class="product-fail-message failure-message"></div>
                 <h3 class="close">X</h3>
                 <h1 id="add-head">Add Product</h1>
                 <label for="barcode">Product Name:</label><div class="element"> <input type="text" name="Product" id="product-name"></div>
@@ -39,7 +40,8 @@
     <div class="popup customer">
         <div class="add new-customer">
             <form id="customer-form" action="">
-                <div class="customer-message message"></div>
+                <div class="customer-message success-message"></div>
+                <div class="customer-fail-message failure-message"></div>
                 <h3 class="close">X</h3>
                 <h1 id="add-head">Add Customer</h1>
                 <label for="cust-name">Name:</label>
@@ -57,9 +59,11 @@
     <div class="popup invoice">
       <div class="add new-item">
         <form id="invoice-form" action="" autocomplete="off">
-          <div class="customer-message message"></div>
-          <h3 class="close">X</h3>
 
+          <div class="invoice-message success-message"></div>
+          <div class="invoice-fail-message failure-message"></div>
+
+          <h3 class="close">X</h3>
           <div class="element">
             <select name="product" id="invoice-new-customer" required>
               <option selected disabled>Select a Customer</option>
@@ -75,10 +79,15 @@
           <label for="">Quantity:</label>
           <div class="element"><input type="number" id="qty"></div>
 
+          <div class="element">
+            <input type="number" name="" id="remove-id" placeholder="Specify Item Id to remove (optional)"> 
+          </div>
+
           <button class="btn-add" type="submit" id="add-to-invoice">Add Product</button>
           <button class="btn-rem"  id="rem-invoice">Remove Product</button>
           <button class="btn-add" type="submit" id="gen-invoice">Generate Bill</button>
           <button class="btn-add btn-another" type="reset" id="new-invoice">Generate Another</button>
+          
         </form>
       </div>
 
@@ -90,6 +99,7 @@
 
         <table id="bill"> 
           <tr class="bill-head">
+            <td>Id</td>
             <td id="bill-first">Item</td> 
             <td>Price</td>
             <td>Qty</td>
@@ -101,7 +111,7 @@
           Total:  <span id="total-price"> 0 </span>
         </div>
       </div>
-    </div>
+    </div>  
 
 </body>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

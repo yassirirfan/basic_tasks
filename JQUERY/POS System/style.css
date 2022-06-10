@@ -127,10 +127,20 @@ select{
   border-radius: 3px;
 }
 .btns{ margin-top: 30px; }
-.message{
+.success-message{
   text-align: center;
   width: 85%;
   background-color:rgba(10, 173, 159);
+  color: #fff;
+  padding: 8px;
+  border-radius: 3px;
+  margin: 20px;
+  display: none;
+}
+.failure-message{
+  text-align: center;
+  width: 85%;
+  background-color:rgb(216, 81, 81);
   color: #fff;
   padding: 8px;
   border-radius: 3px;
@@ -141,7 +151,7 @@ select{
   color: #504f4f;
   padding: 20px;
   background: #fff;
-  height: 310px;
+  height: 29  0px;
   width: 600px;
   margin: 0 auto;
   margin-top: 50px;
