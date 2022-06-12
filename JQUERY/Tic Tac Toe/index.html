@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="style.css">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;500;600&display=swap" rel="stylesheet"> 
+	<title>Tic Tac Toe</title>
+</head>
+<body>
+
+	<div class="popup choice">
+		<div class="choose">
+			<div class="choose-content">
+				<h2>Game Type</h2>
+				<div class="options">
+					<p id="single">Single</p>
+					<p id="multi">Multiplayer</p>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<h1 id="game-head">Tic Tac Toe</h1>
+	<div id="container">
+		<div class="col" id="spot1"></div>
+		<div class="col" id="spot2"></div>
+		<div class="col" id="spot3"></div>
+		<div class="col" id="spot4"></div>
+		<div class="col" id="spot5"></div>
+		<div class="col" id="spot6"></div>
+		<div class="col" id="spot7"></div>
+		<div class="col" id="spot8"></div>
+		<div class="col" id="spot9"></div>
+	</div>
+
+	<div class="popup result">
+		<div class="result-container">
+			<h1 id="result-text"></h1>
+			<h3 id="play-again">Play Again</h3>
+		</div>
+	</div>
+
+</body>
+	<script src="https://code.jquery.com/jquery-3.6.0.slim.min.js"></script>
+	<script src="index.js"></script>
+</html>

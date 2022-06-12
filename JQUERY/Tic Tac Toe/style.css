@@ -1,0 +1,111 @@
+*{
+	margin: 0;
+	padding: 0;
+}
+body{
+	background-image: linear-gradient(#160628, #14031d);
+	height: 87vh;
+	font-family: 'Montserrat', sans-serif;
+}
+#game-head{
+	color: #fff;
+	text-align: center;
+	font-size: 50px;
+	margin-top:100px;
+}
+#container{
+	margin: 40px auto;
+	width: 310px;
+	display: grid;
+	grid-template-columns: auto auto auto;
+	height: 320px;
+	background-color: rgba(177, 176, 176, 0.099);
+	border-radius: 5px;
+}
+.col{
+	color: aliceblue;
+	padding-top: 30px;
+	font-size: 50px;
+	border: 1px solid rgba(180, 178, 178, 0.049);
+	text-align: center;
+	border-radius: 3px;
+}
+.col:hover{
+	background-color: rgba(54, 52, 52, 0.207);
+	cursor: pointer;
+}
+.popup{
+	top:0;
+	height: 100%;
+	width: 100%;
+	position:absolute;
+}
+.result{
+	background-image: linear-gradient(#160628, #14031d);
+	display: none;
+}
+.result-container{
+	margin: 30% auto;
+	background-color: rgba(255, 255, 255, 0.052);
+	width: 500px;
+	height: 200px;
+	border-radius: 5px;
+	padding: 20px;
+	color: #ffffff;
+}
+.result-container h1{
+	text-align: center;
+	margin-top: 55px;
+}
+.result-container h3{
+	text-align: center;
+	border: 1px solid rgba(252, 252, 252, 0.14);
+	width: 200px;
+	margin: 20px auto;
+	padding: 8px;
+	border-radius: 3px;
+	cursor: pointer;
+}
+.result-container h3:hover{
+	background-color: rgba(255, 255, 255, 0.815);
+	color:#14031d
+}
+.choice{
+	background-image: linear-gradient(#160628, #14031d);
+	display: flex;
+}
+.choose{
+	width: 500px;
+	color: #fff;
+	background-color: rgba(209, 208, 208, 0.074);
+	height: 300px;
+	margin: 20% auto;
+	border-radius: 5px;
+}
+.choose-content{
+	margin: 100px auto;
+	width: 300px;
+}
+.choose-content h2{
+	text-align: center;
+	font-size: 40px;
+}
+.options{
+	display: flex;
+	margin-top: 20px;
+}
+#multi,#single{
+	margin-left: 35px;
+	border: 1px solid rgba(233, 240, 231, 0.129);
+	border-radius: 3px;
+	padding: 10px;
+	cursor: pointer;
+}
+#single:hover{
+	background-color: rgba(255, 255, 255, 0.815);
+	color:#14031d
+}
+#multi:hover{
+	background-color: rgba(255, 255, 255, 0.815);
+	color:#14031d
+}
