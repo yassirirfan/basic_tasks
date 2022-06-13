@@ -23,14 +23,15 @@ $(() => {
 	function isTie(){
 		if(turns == 9){  
             if(gameType == 'm'){
-                if(checkWon('o')) { showResult('O Win!'); }
-                else if(checkWon('x')) { showResult('X Win!'); }
+                if(checkWon('o')) { showResult('Player O Win!'); }
+                else if(checkWon('x')) { showResult('Player X Win!'); }
+				else{showResult('Its a Tie')}
             }
             else if(gameType == 's'){
                 if(checkWon('o')) { showResult('Computer Win!'); }
                 else if(checkWon('x')) { showResult('You Win!'); }
+				else{ showResult('Its a Tie') }
             }
-			else { showResult('Its a Tie'); }
 		}
 	}
     function displayError(msg){
@@ -43,7 +44,7 @@ $(() => {
 		$('.col').removeClass('disable');
 		$('.col').removeClass('o');
 		$('.col').removeClass('x');
-        $('#show-turn').text("X's Turn");
+        $('#show-turn').text("Player X's Turn");
 		turns = 0;
 	}
 	function showResult(msg){
@@ -55,15 +56,15 @@ $(() => {
 			turns--;
 			displayError('This spot is already filled');
 		} else if(turns%2 == 0){
-            $('#show-turn').text("X's Turn");
+            $('#show-turn').text("Player X's Turn");
 			current_spot.text(o);
 			current_spot.addClass('disable o');
-			if(checkWon('o')){ showResult('O Win!'); }
+			if(checkWon('o')){ showResult('Player O Win!'); }
 		} else{
-            $('#show-turn').text("O's Turn");
+            $('#show-turn').text("Player O's Turn");
 			current_spot.text(x);
 			current_spot.addClass('disable x');
-			if(checkWon('x')){ showResult('X Win!'); }
+			if(checkWon('x')){ showResult('Player X Win!'); }
 		} isTie()
 	}
 	function single(current_spot){
@@ -80,7 +81,7 @@ $(() => {
 
 			if(turns < 9){
 				turns++
-				while(flag){
+				while(flag && turns != 9){
 					for(let i = Math.floor(Math.random() * 8); i<9; i++){
 						if($(obj[i]).text() == ''){
 							flag = false;
@@ -101,6 +102,7 @@ $(() => {
 		gameType = 's'
 	});
 	$('#multi').click(function () { 
+		$('#show-turn').css('display','block')
 		$('.choice').css('display','none')
 		gameType = 'm'
 	});
@@ -113,7 +115,8 @@ $(() => {
 			multiplayer(current)
 		} else{ single(current) }
 	});
-	$("#play-again").click(function (){ 
+
+	$("#play-again").add('#new').click(function (){ 
 		resetGame();
 		$('.result').css('display','none');
 		$('.choice').css('display','flex');

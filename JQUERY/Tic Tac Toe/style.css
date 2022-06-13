@@ -64,11 +64,22 @@ body{
 }
 #reset{
     padding: 10px;
-    background-color: #fff;
+    background-color: rgba(255, 255, 255, 0.075);
     width: 150px;
     text-align: center;
     margin: 0 auto;
-    color: rgb(190, 56, 56);
+    color: rgb(167, 56, 56);
+    font-weight: 800;
+    border-radius: 3px;
+    cursor: pointer;
+}
+#new{
+	padding: 10px;
+    background-color: rgba(255, 255, 255, 0.075);
+    width: 150px;
+    text-align: center;
+    margin: 10px auto;
+    color: rgb(83, 145, 97);
     font-weight: 800;
     border-radius: 3px;
     cursor: pointer;
@@ -77,18 +88,22 @@ body{
     color: #fff;
     background-color: rgb(190, 56, 56);
 }
+#new:hover{
+	color: #fff;
+    background-color: rgb(95, 165, 127);
+}
 .result{
-	background-image: linear-gradient(#16062859, #14031d00);
+	background-image: linear-gradient(#210c5c69, #8a90ca36);
 	display: none;
 }
 .result-container{
-	margin: 600px auto;
-	background-image: linear-gradient(#17072c, #14031d);
+	margin: 0 auto;
+	background-image: linear-gradient(#171341, #25193b);
 	width: 500px;
 	height: 200px;
 	border-radius: 5px;
 	padding: 20px;
-    border: 1px solid rgba(255, 255, 255, 0.164);
+    border: 1px solid rgba(255, 255, 255, 0.082);
 	color: #ffffff;
 }
 .result-container h1{
