@@ -20,59 +20,63 @@ $(() => {
         }
         return win
     }
-
 	function isTie(){
 		if(turns == 9){  
-			if(checkWon('o')) { showResult('Winner: O'); }
-			else if(checkWon('x')) { showResult('Winner: X'); }
-			else { showResult('Tie Game'); }
+            if(gameType == 'm'){
+                if(checkWon('o')) { showResult('O Win!'); }
+                else if(checkWon('x')) { showResult('X Win!'); }
+            }
+            else if(gameType == 's'){
+                if(checkWon('o')) { showResult('Computer Win!'); }
+                else if(checkWon('x')) { showResult('You Win!'); }
+            }
+			else { showResult('Its a Tie'); }
 		}
 	}
-
+    function displayError(msg){
+        $('#show-error').text(msg);
+        $('#show-error').fadeIn();
+        $('#show-error').delay(1000).fadeOut('slow')
+    }
 	function resetGame(){
 		$('.col').text('');
 		$('.col').removeClass('disable');
 		$('.col').removeClass('o');
 		$('.col').removeClass('x');
+        $('#show-turn').text("X's Turn");
 		turns = 0;
 	}
-
 	function showResult(msg){
 		$('#result-text').text(msg)
 		$('.result').css('display','flex')
 	}
-	
 	function multiplayer(current_spot){
 		if(current_spot.hasClass('disable')){
-			turns--
-			alert('This spot is already filled');
-		}
-		else if(turns%2 == 0){
+			turns--;
+			displayError('This spot is already filled');
+		} else if(turns%2 == 0){
+            $('#show-turn').text("X's Turn");
 			current_spot.text(o);
 			current_spot.addClass('disable o');
-			if(checkWon('o')){ showResult('Winner: O'); }
-		} 
-		else{
+			if(checkWon('o')){ showResult('O Win!'); }
+		} else{
+            $('#show-turn').text("O's Turn");
 			current_spot.text(x);
 			current_spot.addClass('disable x');
-			if(checkWon('x')){ showResult('Winner: X'); }
-		}
-		isTie()
+			if(checkWon('x')){ showResult('X Win!'); }
+		} isTie()
 	}
-
 	function single(current_spot){
 		obj = $('.col')
 		if(current_spot.hasClass('disable')){
 			turns--
-			alert('This spot is already filled');
-		}
-		else{
+			displayError('This spot is already filled');
+		}else{
 			turns ++;
 			flag = true;
-	
 			current_spot.text(x);
 			current_spot.addClass('disable x');
-			if(checkWon('x')){ showResult('Winner: You'); }
+			if(checkWon('x')){ showResult('You Win!'); }
 
 			if(turns < 9){
 				turns++
@@ -82,44 +86,39 @@ $(() => {
 							flag = false;
 							$(obj[i]).text(o);
 							$(obj[i]).addClass('disable o');
-							if(checkWon('o')){ showResult('Winner: Computer'); }
+							if(checkWon('o')){ showResult('Computer Win!'); }
 							break;
 						}
 					}
 				}
-			}
-			console.log(turns)
-			isTie()
+			} isTie()
 		}
-
 	}
 
 	$('#single').click(function () { 
+        $('#show-turn').css('display','none')
 		$('.choice').css('display','none')
-		gameType='s'
+		gameType = 's'
 	});
-
 	$('#multi').click(function () { 
 		$('.choice').css('display','none')
-		gameType='m'
+		gameType = 'm'
 	});
-
 	$('#container > div').click( function () {
-		
 		let id = $(this).attr('id');
 		let current = $(`#${id}`);
 
 		if(gameType=='m'){
 			turns++;
 			multiplayer(current)
-		}
-		else{ single(current) }
+		} else{ single(current) }
 	});
-
 	$("#play-again").click(function (){ 
 		resetGame();
 		$('.result').css('display','none');
 		$('.choice').css('display','flex');
 	});
+
+    $('#reset').click(function(){ resetGame() })
 
 });

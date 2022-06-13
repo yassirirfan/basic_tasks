@@ -4,7 +4,7 @@
 }
 body{
 	background-image: linear-gradient(#160628, #14031d);
-	height: 87vh;
+	height: 88vh;
 	font-family: 'Montserrat', sans-serif;
 }
 #game-head{
@@ -14,17 +14,39 @@ body{
 	margin-top:100px;
 }
 #container{
-	margin: 40px auto;
+	margin: 20px auto;
 	width: 310px;
 	display: grid;
 	grid-template-columns: auto auto auto;
-	height: 320px;
-	background-color: rgba(177, 176, 176, 0.099);
+	height: 335px;
+	background-color: rgba(177, 176, 176, 0.089);
 	border-radius: 5px;
 }
+#show-error{
+    background-color: #fff;
+    padding: 10px;
+    width: 300px;
+    text-align: center;
+    margin: 30px auto;
+    color: #14031d;
+    border-radius: 4px;
+    display: none;
+}
+#show-turn{
+    background-color: rgba(255, 255, 255, 0.075);
+    padding: 10px;
+    width: 290px;
+    text-align: center;
+    margin: 30px auto;
+    color: #fff;
+    border-radius: 4px;
+
+}
 .col{
+    padding-top: 20px;
+    height: 89px;
+    width: 99px;
 	color: aliceblue;
-	padding-top: 30px;
 	font-size: 50px;
 	border: 1px solid rgba(180, 178, 178, 0.049);
 	text-align: center;
@@ -40,17 +62,33 @@ body{
 	width: 100%;
 	position:absolute;
 }
+#reset{
+    padding: 10px;
+    background-color: #fff;
+    width: 150px;
+    text-align: center;
+    margin: 0 auto;
+    color: rgb(190, 56, 56);
+    font-weight: 800;
+    border-radius: 3px;
+    cursor: pointer;
+}
+#reset:hover{
+    color: #fff;
+    background-color: rgb(190, 56, 56);
+}
 .result{
-	background-image: linear-gradient(#160628, #14031d);
+	background-image: linear-gradient(#16062859, #14031d00);
 	display: none;
 }
 .result-container{
-	margin: 30% auto;
-	background-color: rgba(255, 255, 255, 0.052);
+	margin: 600px auto;
+	background-image: linear-gradient(#17072c, #14031d);
 	width: 500px;
 	height: 200px;
 	border-radius: 5px;
 	padding: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.164);
 	color: #ffffff;
 }
 .result-container h1{
@@ -79,7 +117,7 @@ body{
 	color: #fff;
 	background-color: rgba(209, 208, 208, 0.074);
 	height: 300px;
-	margin: 20% auto;
+	margin: 200px auto;
 	border-radius: 5px;
 }
 .choose-content{
