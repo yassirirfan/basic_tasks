@@ -16,16 +16,22 @@
 		<div class="choose">
 			<div class="choose-content">
 				<h2>Game Type</h2>
+				<div id="choose-player">
+					<span style="margin-right: 10px;">First Player:  </span>
+					X <input type="radio" name="XO" value="x" id="x">
+					O <input type="radio" name="XO" value="o" id="o">
+				</div>
 				<div class="options">
 					<p id="single">Single</p>
 					<p id="multi">Multiplayer</p>
 				</div>
 			</div>
+			<div id="show-error1"></div>
 		</div>
 	</div>
 
 	<h1 id="game-head">Tic Tac Toe</h1>
-    <div id="show-turn"> Player X's Turn</div>
+    <div id="show-turn"></div>
 	<div id="container">
 		<div class="col" id="spot1"></div>
 		<div class="col" id="spot2"></div>
@@ -39,7 +45,7 @@
 	</div>
     <div id="reset">Reset Game</div>
 	<div id="new">New Game</div>
-    <div id="show-error"> </div>
+    <div id="show-error2"> </div>
 
 	<div class="popup result">
 		<div class="result-container">

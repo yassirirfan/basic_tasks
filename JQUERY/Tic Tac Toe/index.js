@@ -20,11 +20,11 @@ $(() => {
         }
         return win
     }
-	function isTie(){
+	function isTie(player1,player2){
 		if(turns == 9){  
             if(gameType == 'm'){
-                if(checkWon('o')) { showResult('Player O Win!'); }
-                else if(checkWon('x')) { showResult('Player X Win!'); }
+                if(checkWon(player1)) { showResult(`Player ${player1} Win!`); }
+                else if(checkWon(player2)) { showResult(`Player ${player1} Win!`); }
 				else{showResult('Its a Tie')}
             }
             else if(gameType == 's'){
@@ -34,50 +34,56 @@ $(() => {
             }
 		}
 	}
-    function displayError(msg){
-        $('#show-error').text(msg);
-        $('#show-error').fadeIn();
-        $('#show-error').delay(1000).fadeOut('slow')
+    function displayError(msg,id){
+        $(`#show-error${id}`).text(msg);
+        $(`#show-error${id}`).fadeIn();
+        $(`#show-error${id}`).delay(1000).fadeOut('slow')
     }
 	function resetGame(){
+		let player = $("input[name='XO']:checked").val();
 		$('.col').text('');
 		$('.col').removeClass('disable');
 		$('.col').removeClass('o');
 		$('.col').removeClass('x');
-        $('#show-turn').text("Player X's Turn");
+        $('#show-turn').text(`Player ${player}'s Turn`);
 		turns = 0;
 	}
 	function showResult(msg){
 		$('#result-text').text(msg)
 		$('.result').css('display','flex')
 	}
-	function multiplayer(current_spot){
+	function multiplayer(current_spot,player1){
+		let player2;
+		player1 == 'x' ? player2 = 'o': player2 = 'x';
 		if(current_spot.hasClass('disable')){
 			turns--;
-			displayError('This spot is already filled');
+			displayError('This spot is already filled',2);
 		} else if(turns%2 == 0){
-            $('#show-turn').text("Player X's Turn");
-			current_spot.text(o);
-			current_spot.addClass('disable o');
-			if(checkWon('o')){ showResult('Player O Win!'); }
+            $('#show-turn').text(`Player ${player1}'s Turn`);
+			current_spot.text(player2);
+			current_spot.addClass(`disable ${player2}`);
+			if(checkWon(player2)){ showResult(`Player ${player2} Win!`); }
 		} else{
-            $('#show-turn').text("Player O's Turn");
-			current_spot.text(x);
-			current_spot.addClass('disable x');
-			if(checkWon('x')){ showResult('Player X Win!'); }
-		} isTie()
+            $('#show-turn').text(`Player ${player2}'s Turn`);
+			current_spot.text(player1);
+			current_spot.addClass(`disable ${player1}`);
+			if(checkWon(player1)){ showResult(`Player ${player1}  Win!`); }
+		} isTie(player1,player2)
 	}
-	function single(current_spot){
+
+	function single(current_spot,user){
 		obj = $('.col')
+		let pc;
+		user == 'x' ? pc = 'o' : pc = 'x';
 		if(current_spot.hasClass('disable')){
 			turns--
-			displayError('This spot is already filled');
+			displayError('This spot is already filled',2);
 		}else{
 			turns ++;
 			flag = true;
-			current_spot.text(x);
-			current_spot.addClass('disable x');
-			if(checkWon('x')){ showResult('You Win!'); }
+			current_spot.text(user);
+			current_spot.addClass(`disable ${user}`);
+			if(checkWon(user)){ showResult('You Win!'); }
 
 			if(turns < 9){
 				turns++
@@ -85,35 +91,46 @@ $(() => {
 					for(let i = Math.floor(Math.random() * 8); i<9; i++){
 						if($(obj[i]).text() == ''){
 							flag = false;
-							$(obj[i]).text(o);
-							$(obj[i]).addClass('disable o');
-							if(checkWon('o')){ showResult('Computer Win!'); }
+							$(obj[i]).text(pc);
+							$(obj[i]).addClass(`disable ${pc}`);
+							if(checkWon(pc)){ showResult('Computer Win!'); }
 							break;
 						}
 					}
 				}
-			} isTie()
+			} isTie(user,pc)
 		}
 	}
 
 	$('#single').click(function () { 
-        $('#show-turn').css('display','none')
-		$('.choice').css('display','none')
-		gameType = 's'
+		let plyr = $("input[name='XO']:checked").val()
+		if(plyr == undefined){ displayError('Please Select X or O',1)}
+		else{
+			$('#show-turn').css('display','none')
+			$('.choice').css('display','none')
+			gameType = 's'
+		}
 	});
 	$('#multi').click(function () { 
-		$('#show-turn').css('display','block')
-		$('.choice').css('display','none')
-		gameType = 'm'
+		let plyr = $("input[name='XO']:checked").val()
+		if(plyr == undefined){ displayError('Please Select X or O',1) }
+		else{
+			$('#show-turn').text(`Player ${plyr}'s Turn`)
+			$('#show-turn').css('display','block')
+			$('.choice').css('display','none')
+			gameType = 'm'
+		}
+		console.log(plyr)
 	});
 	$('#container > div').click( function () {
 		let id = $(this).attr('id');
 		let current = $(`#${id}`);
+		let player = $("input[name='XO']:checked").val();
 
 		if(gameType=='m'){
 			turns++;
-			multiplayer(current)
-		} else{ single(current) }
+			multiplayer(current,player)
+		} else{ single(current,player) }
 	});
 
 	$("#play-again").add('#new').click(function (){ 
