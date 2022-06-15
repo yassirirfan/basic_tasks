@@ -17,8 +17,7 @@ $(() => {
                 win = true;
                 break;
             }
-        }
-        return win
+        } return win
     }
 	function isTie(player1,player2){
 		if(turns == 9){  
@@ -28,8 +27,8 @@ $(() => {
 				else{showResult('Its a Tie')}
             }
             else if(gameType == 's'){
-                if(checkWon('o')) { showResult('Computer Win!'); }
-                else if(checkWon('x')) { showResult('You Win!'); }
+                if(checkWon('o')) { showResult(`${player1} Win!`); }
+                else if(checkWon('x')) { showResult(`${player1} Win!`); }
 				else{ showResult('Its a Tie') }
             }
 		}
@@ -120,7 +119,6 @@ $(() => {
 			$('.choice').css('display','none')
 			gameType = 'm'
 		}
-		console.log(plyr)
 	});
 	$('#container > div').click( function () {
 		let id = $(this).attr('id');
