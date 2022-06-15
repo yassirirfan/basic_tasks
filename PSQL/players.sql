@@ -1,6 +1,7 @@
-create table country(id int primary key,name varchar(20));
-into country(id,name) values
-    (101,'England'),
+
+CREATE TABLE country(id INT PRIMARY KEY,name VARCHAR(20));
+INTO country(id,name) VALUES
+    (101,'EnglAND'),
     (102,'Argentina'),
     (109,'Portugal'),
     (124,'Germany'),
@@ -12,7 +13,7 @@ into country(id,name) values
 
  id  |   name    
 -----+-----------
- 101 | England
+ 101 | EnglAND
  102 | Argentina
  109 | Portugal
  124 | Germany
@@ -23,15 +24,15 @@ into country(id,name) values
  202 | France
 
 
-create table coach(
-    id int primary key,
-    name varchar(20),
-    age int,
-    country_id int,
-    foreign key(country_id) references country(id)
+CREATE TABLE coach(
+    id INT PRIMARY KEY,
+    name VARCHAR(20),
+    age INT,
+    country_id INT,
+    FOREIGN KEY(country_id) REFERENCES country(id)
 );
 
-insert into coach (id,name,age,country_id) values
+INSERT INTO coach (id,name,age,country_id) VALUES
     (2349,'Pochettino',50,102),
     (2648,'Allegri',54,136),
     (3414,'Conte',52,136),
@@ -49,14 +50,14 @@ insert into coach (id,name,age,country_id) values
  7456 | Klopp      |  54 |        124
 
 
-create table club(
-    id int primary key,
-    name varchar(20),coach_id int,
-    country_id int,
-    foreign key(coach_id) references coach(id),
-    foreign key(country_id) references country(id));
+CREATE TABLE club(
+    id INT PRIMARY KEY,
+    name VARCHAR(20),coach_id INT,
+    country_id INT,
+    FOREIGN KEY(coach_id) REFERENCES coach(id),
+    FOREIGN KEY(country_id) REFERENCES country(id));
 
-insert into club(id,name,coach_id,country_id) values
+INSERT INTO club(id,name,coach_id,country_id) VALUES
     (635,'Liverpool',7456,101),
     (723,'Juventus',2648,136),
     (893,'Barcelona',5975,135),
@@ -75,16 +76,16 @@ insert into club(id,name,coach_id,country_id) values
 
 
 
-create table players(
-    id int primary key, 
-    name varchar(20), 
-    age int,goals int, 
-    club_id int, 
-    country_id int, 
-    foreign key(club_id) references club(id), 
-    foreign key(country_id) references country(id));
+CREATE TABLE players(
+    id INT PRIMARY KEY, 
+    name VARCHAR(20), 
+    age INT,goals INT, 
+    club_id INT, 
+    country_id INT, 
+    FOREIGN KEY(club_id) REFERENCES club(id), 
+    FOREIGN KEY(country_id) REFERENCES country(id));
 
-insert into players(id,name,age,goals,club_id,country_id) values
+INSERT INTO players(id,name,age,goals,club_id,country_id) VALUES
     (1,'Messi',34,761,901,102),
     (2,'Ronaldo',37,801,897,109),
     (3,'Neymar',30,344,901,158),
@@ -100,7 +101,7 @@ insert into players(id,name,age,goals,club_id,country_id) values
   5 | Kane    |  28 |   241 |     975 |        101
 
 
-select name from club where country_id = 101;
+SELECT name FROM club WHERE country_id = 101;
 
      name     
 --------------
@@ -108,21 +109,21 @@ select name from club where country_id = 101;
  Tottenham
  Manchester U
 
-select a.name from players a, coach b  where a.country_id = b.country_id;
+SELECT a.name FROM players a, coach b  WHERE a.country_id = b.country_id;
 
  name  
 -------
  Messi
 
- select distinct(players.name) from players,club  where players.country_id = club.country_id;
+ SELECT DISTINCT(players.name) FROM players,club  WHERE players.country_id = club.country_id;
 
  name 
 ------
  Kane
 
-select a.name from coach a, club b 
-    where b.coach_id = a.id and a.country_id <> b.country_id 
-    and a.age <59 order by age ;
+SELECT a.name FROM coach a, club b 
+    WHERE b.coach_id = a.id AND a.country_id <> b.country_id 
+    AND a.age <59 ORDER BY age ;
 
     name    
 ------------
@@ -131,18 +132,18 @@ select a.name from coach a, club b
  Klopp
 
 
-select a.name as Player,a.age,a.goals,
+SELECT a.name as Player,a.age,a.goals,
     b.name as Country, c.name as Club,d.name as Coach
-    from players a,country b,club c,coach d  
-    where a.country_id = b.id and a.club_id = c.id 
-    and c.coach_id = d.id order by goals desc limit 5;
+    FROM players a,country b,club c,coach d  
+    WHERE a.country_id = b.id AND a.club_id = c.id 
+    AND c.coach_id = d.id ORDER BY goals DESC LIMIT 5;
 
  player  | age | goals |  country  |     club     |   coach    
 ---------+-----+-------+-----------+--------------+------------
  Ronaldo |  37 |   801 | Portugal  | Manchester U | Rangnick
  Messi   |  34 |   761 | Argentina | PSG          | Pochettino
  Neymar  |  30 |   344 | Brazil    | PSG          | Pochettino
- Kane    |  28 |   241 | England   | Tottenham    | Conte
+ Kane    |  28 |   241 | EnglAND   | Tottenham    | Conte
  Salah   |  29 |   223 | Egypt     | Liverpool    | Klopp
 
 
