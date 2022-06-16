@@ -13,7 +13,7 @@ INTO country(id,name) VALUES
 
  id  |   name    
 -----+-----------
- 101 | EnglAND
+ 101 | England
  102 | Argentina
  109 | Portugal
  124 | Germany
@@ -35,7 +35,7 @@ CREATE TABLE coach(
 INSERT INTO coach (id,name,age,country_id) VALUES
     (2349,'Pochettino',50,102),
     (2648,'Allegri',54,136),
-    (3414,'Conte',52,136),
+    (3414,'CONte',52,136),
     (4821,'Rangnick',63,124),
     (5975,'Xavi',42,135),
     (7456,'Klopp',54,124);
@@ -44,7 +44,7 @@ INSERT INTO coach (id,name,age,country_id) VALUES
 ------+------------+-----+------------
  2349 | Pochettino |  50 |        102
  2648 | Allegri    |  54 |        136
- 3414 | Conte      |  52 |        136
+ 3414 | Conte     |  52 |        136
  4821 | Rangnick   |  63 |        124
  5975 | Xavi       |  42 |        135
  7456 | Klopp      |  54 |        124
@@ -69,7 +69,7 @@ INSERT INTO club(id,name,coach_id,country_id) VALUES
 ------+--------------+----------+------------
   635 | Liverpool    |     7456 |        101
   723 | Juventus     |     2648 |        136
-  893 | Barcelona    |     5975 |        135
+  893 | Barcelona   |     5975 |        135
   897 | Manchester U |     4821 |        101
   901 | PSG          |     2349 |        202
   975 | Tottenham    |     3414 |        101
@@ -101,7 +101,9 @@ INSERT INTO players(id,name,age,goals,club_id,country_id) VALUES
   5 | Kane    |  28 |   241 |     975 |        101
 
 
-SELECT name FROM club WHERE country_id = 101;
+SELECT club.name FROM club 
+  INNER JOIN country ON club.country_id = country.id
+  WHERE country.name = 'England';
 
      name     
 --------------
@@ -109,22 +111,25 @@ SELECT name FROM club WHERE country_id = 101;
  Tottenham
  Manchester U
 
-SELECT a.name FROM players a, coach b  WHERE a.country_id = b.country_id;
+SELECT players.name FROM players
+  INNER JOIN coach ON players.country_id = coach.country_id;
 
  name  
 -------
  Messi
 
- SELECT DISTINCT(players.name) FROM players,club  WHERE players.country_id = club.country_id;
+SELECT DISTINCT(players.name) FROM players
+  INNER JOIN club ON players.country_id = club.country_id;
 
  name 
 ------
  Kane
 
-SELECT a.name FROM coach a, club b 
-    WHERE b.coach_id = a.id AND a.country_id <> b.country_id 
-    AND a.age <59 ORDER BY age ;
-
+SELECT coach.name FROM coach 
+  INNER JOIN club ON coach.id = club.coach_id
+  WHERE coach.country_id <> club.country_id and 
+  coach.age < 59 ORDER BY age;
+   
     name    
 ------------
  Pochettino
@@ -132,21 +137,17 @@ SELECT a.name FROM coach a, club b
  Klopp
 
 
-SELECT a.name as Player,a.age,a.goals,
-    b.name as Country, c.name as Club,d.name as Coach
-    FROM players a,country b,club c,coach d  
-    WHERE a.country_id = b.id AND a.club_id = c.id 
-    AND c.coach_id = d.id ORDER BY goals DESC LIMIT 5;
+SELECT players.name as Player, 
+  players.age, players.goals,country.name,club.name,coach.name
+  FROM players INNER JOIN country ON country.id = players.country_id 
+  INNER JOIN club ON players.club_id = club.id 
+  INNER JOIN coach ON club.coach_id = coach.id ORDER BY goals DESC LIMIT 5;
+
 
  player  | age | goals |  country  |     club     |   coach    
 ---------+-----+-------+-----------+--------------+------------
  Ronaldo |  37 |   801 | Portugal  | Manchester U | Rangnick
  Messi   |  34 |   761 | Argentina | PSG          | Pochettino
  Neymar  |  30 |   344 | Brazil    | PSG          | Pochettino
- Kane    |  28 |   241 | EnglAND   | Tottenham    | Conte
+ Kane    |  28 |   241 | England   | Tottenham    | Conte
  Salah   |  29 |   223 | Egypt     | Liverpool    | Klopp
-
-
-
-
-
