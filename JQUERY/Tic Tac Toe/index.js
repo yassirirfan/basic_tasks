@@ -21,16 +21,9 @@ $(() => {
     }
 	function isTie(player1,player2){
 		if(turns == 9){  
-            if(gameType == 'm'){
-                if(checkWon(player1)) { showResult(`Player ${player1} Win!`); }
-                else if(checkWon(player2)) { showResult(`Player ${player1} Win!`); }
-				else{showResult('Its a Tie')}
-            }
-            else if(gameType == 's'){
-                if(checkWon('o')) { showResult(`${player1} Win!`); }
-                else if(checkWon('x')) { showResult(`${player1} Win!`); }
-				else{ showResult('Its a Tie') }
-            }
+            if(checkWon(player1)) { showResult(`Player ${player1} Win!`); }
+            else if(checkWon(player2)) { showResult(`Player ${player1} Win!`); }
+			else{showResult('Its a Tie')}
 		}
 	}
     function displayError(msg,id){
@@ -86,7 +79,7 @@ $(() => {
 
 			if(turns < 9){
 				turns++
-				while(flag && turns != 9){
+				while(flag){
 					for(let i = Math.floor(Math.random() * 8); i<9; i++){
 						if($(obj[i]).text() == ''){
 							flag = false;
