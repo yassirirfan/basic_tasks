@@ -55,7 +55,8 @@ $(() => {
             if (products_obj.hasOwnProperty(data[0].value)){ messenger($('.product-fail-message'),'Product already exists') }
             else {
                 products_obj[data[0].value] = parseInt(data[1].value)  
-                messenger($('.product-message'),'Product Added Successfully')               
+                messenger($('.product-message'),'Product Added Successfully')   
+                $('#product-form')[0].reset()            
             }
         }
     });
@@ -69,6 +70,7 @@ $(() => {
             else {
                 customers_obj[data[0].value] = parseInt(data[1].value)
                 messenger($('.customer-message'),'Customer Added Successfully')
+                $('#customer-form')[0].reset()
             }
         }
     });
