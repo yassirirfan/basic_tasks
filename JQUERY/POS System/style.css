@@ -151,11 +151,12 @@ select{
   color: #504f4f;
   padding: 20px;
   background: #fff;
-  height: 29  0px;
+  max-height: 280px;
   width: 600px;
   margin: 0 auto;
   margin-top: 50px;
   border-radius: 4px;
+  overflow: scroll;
 }
 #bill{ width: 100%; }
 #bill td{
@@ -181,4 +182,12 @@ select{
 #date{
   font-size: 13px;
   margin-left: 70%;
+}
+.qty{
+  cursor: pointer;
+}
+#modify{
+  padding: 8px;
+  width: 50px;
+  text-align: center;
 }

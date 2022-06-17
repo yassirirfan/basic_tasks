@@ -86,7 +86,7 @@ $(() => {
             
             if(!temp[product]){
                 invoice.push(bill)
-                let content =`<td>${item_id}</td><td>${product}</td><td>${products_obj[product]}</td><td>${$('#qty').val()}</td><td>${sub_total}</td>`
+                let content =`<td>${item_id}</td><td>${product}</td><td>${products_obj[product]}</td><td class="qty" >${$('#qty').val()}</td><td>${sub_total}</td>`
                 $('#bill').append("<tr class='list'>" + content  + "</tr>");
                 item_id += 1
                 $('#total-price').text(calcTotal())
@@ -139,5 +139,37 @@ $(() => {
         }
         else{ messenger($('.invoice-fail-message'),"Invoice is Empty") }
     });
+
+$(document).on('click','.qty', function () { 
+    let val = $(this).text()
+    $(this).replaceWith(function () {
+        return `<input type="number" id="modify"  value="${val}" />`;
+    });
+ })
+
+ $(document).on('blur','#modify', function () {
+    let changed = $(this).val()
+    let current = $(this).closest('tr')[0]
+    if(changed == '' || changed == '0'){ 
+        $('#gen-invoice').attr('disabled','disabled')
+        messenger($('.invoice-fail-message'),"Quantity should not be Zero or Null")
+        $(current['children'][4]).text(0)
+        $('#date-time').text(' ')
+
+    }
+    else{
+        $(this).replaceWith(function () {
+            $('#gen-invoice').removeAttr('disabled');
+            let index = parseInt($(current['children'][0]).text()) - 1 
+            invoice[index][1] = parseInt($(this).val()) * products_obj[invoice[index][0]]
+            $(current['children'][4]).text(parseInt($(this).val()) * products_obj[invoice[index][0]])
+            $('#total-price').text(calcTotal())
+            return `<td class="qty" >${$(this).val()}</td`;
+        });
+    }
+
+})
     
 })
+
+
