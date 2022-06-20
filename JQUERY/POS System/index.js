@@ -1,18 +1,7 @@
 $(() => {
-    let products_obj = {
-        'Apple Iphone X': 75000,
-        'Oneplus Nord 2 5G' : 29000,
-        'Samsung Galaxy S21' : 68000,
-        'Redmi Note 10 Pro' : 35000,
-        'Asus ROG 4' : 43000
-    }
-    let customers_obj = {
-        'Suhail M': '8156961606',
-        'Jafar K' :'81965695585',
-        'Manoj Mundasseri' : '946585120',
-        'Midhun K' : '8653959612'
-    }
-
+    let products_obj = {}
+    let customers_obj = {}
+    let generated = false
     let temp = {}
     let invoice = []
     let item_id = 1
@@ -48,7 +37,6 @@ $(() => {
 
     $('#add-to-products').click((e) => {
         e.preventDefault();
-
         if ($('#product-name').val().length == 0 || $('#unit-price').val().length == 0){ messenger($('.product-fail-message'),'Fields must not be empty') }
         else{
             data = $('#product-form').serializeArray();
@@ -67,7 +55,7 @@ $(() => {
         else{
             data = $('#customer-form').serializeArray();
             if (customers_obj.hasOwnProperty(data[0].value)){ messenger($('.customer-fail-message'),'Customer Already Exists') }
-            else {
+            else{
                 customers_obj[data[0].value] = parseInt(data[1].value)
                 messenger($('.customer-message'),'Customer Added Successfully')
                 $('#customer-form')[0].reset()
@@ -89,7 +77,7 @@ $(() => {
             if(!temp[product]){
                 invoice.push(bill)
                 let content =`<td>${item_id}</td><td>${product}</td><td>${products_obj[product]}</td><td class="qty" >${$('#qty').val()}</td><td>${sub_total}</td>`
-                $('#bill').append("<tr class='list'>" + content  + "</tr>");
+                $('#bill').append(`<tr class='list'> ${content} </tr>`);
                 item_id += 1
                 $('#total-price').text(calcTotal())
             } else{  messenger($('.invoice-fail-message'),"No Item Selected or Item Already Selected") }
@@ -127,6 +115,7 @@ $(() => {
             $('#total-price').text(calcTotal())
             $('#date-time').text(datetime)
         }
+        generated = true
     });
 
     $('#new-invoice').click( () => { 
@@ -138,40 +127,38 @@ $(() => {
             $('#cust').text('')
             $('#date-time').text('')
             item_id = 1
+            generated = false
         }
         else{ messenger($('.invoice-fail-message'),"Invoice is Empty") }
     });
 
-$(document).on('click','.qty', function () { 
-    let val = $(this).text()
-    $(this).replaceWith(function () {
-        return `<input type="number" id="modify"  value="${val}" />`;
-    });
- })
+    $(document).on('click','.qty', function () { 
+        if(!generated){
+            let val = $(this).text()
+            $(this).replaceWith(function () {
+                return `<input type="number" id="modify"  value="${val}" />`;
+            });
+        }
+        else{messenger($('.invoice-fail-message'),"Sorry, you can't edit confirmed invoice")}
+    })
 
- $(document).on('blur','#modify', function () {
-    let changed = $(this).val()
-    let current = $(this).closest('tr')[0]
-    if(changed == '' || changed == '0'){ 
-        $('#gen-invoice').attr('disabled','disabled')
-        messenger($('.invoice-fail-message'),"Quantity should not be Zero or Null")
-        $(current['children'][4]).text(0)
-        $('#date-time').text(' ')
-
-    }
-    else{
-        $(this).replaceWith(function () {
-            $('#gen-invoice').removeAttr('disabled');
-            let index = parseInt($(current['children'][0]).text()) - 1 
-            invoice[index][1] = parseInt($(this).val()) * products_obj[invoice[index][0]]
-            $(current['children'][4]).text(parseInt($(this).val()) * products_obj[invoice[index][0]])
-            $('#total-price').text(calcTotal())
-            return `<td class="qty" >${$(this).val()}</td`;
-        });
-    }
-
+    $(document).on('blur','#modify', function () {
+        let changed = $(this).val()
+        let current = $(this).closest('tr')[0]
+        if(changed == '' || changed == '0'){ 
+            $('#gen-invoice').attr('disabled','disabled')
+            messenger($('.invoice-fail-message'),"Quantity should not be Zero or Null")
+            $(current['children'][4]).text(0)
+            $('#date-time').text(' ')
+        }else{
+            $(this).replaceWith(function () {
+                $('#gen-invoice').removeAttr('disabled');
+                let index = parseInt($(current['children'][0]).text()) - 1 
+                invoice[index][1] = parseInt($(this).val()) * products_obj[invoice[index][0]]
+                $(current['children'][4]).text(parseInt($(this).val()) * products_obj[invoice[index][0]])
+                $('#total-price').text(calcTotal())
+                return `<td class="qty" >${$(this).val()}</td`;
+            });
+        }
+    })  
 })
-    
-})
-
-
