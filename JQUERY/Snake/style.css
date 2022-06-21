@@ -1,0 +1,27 @@
+#container{ text-align: center; }
+#canvas{
+    background-color: black;
+    box-shadow: black 20px 10px 50px;
+}
+#sco{ font-size: 35px }
+h1{
+    font-size: 45px;
+    letter-spacing: 4px;
+}
+.btn{
+    color: white;
+    background-color: black;
+    height: 35px;
+    width: 150px;
+    border-radius: 15px;
+}
+.btn:hover{
+    background-color: aliceblue;
+    color: black;
+}
+#over{
+    margin-top: -406px;
+    margin-left: 725px;
+    font-size: 60px;
+    color: red;  
+}
