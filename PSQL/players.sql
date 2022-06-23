@@ -137,12 +137,13 @@ SELECT coach.name FROM coach
  Klopp
 
 
-SELECT players.name as Player, 
-  players.age, players.goals,country.name,club.name,coach.name
+CREATE VIEW SoccerList AS SELECT players.name as Player, 
+  players.age, players.goals,country.name as Country,club.name as Club,coach.name as Coach  
   FROM players INNER JOIN country ON country.id = players.country_id 
   INNER JOIN club ON players.club_id = club.id 
   INNER JOIN coach ON club.coach_id = coach.id ORDER BY goals DESC LIMIT 5;
 
+SELECT * FROM SoccerList;
 
  player  | age | goals |  country  |     club     |   coach    
 ---------+-----+-------+-----------+--------------+------------
@@ -151,3 +152,4 @@ SELECT players.name as Player,
  Neymar  |  30 |   344 | Brazil    | PSG          | Pochettino
  Kane    |  28 |   241 | England   | Tottenham    | Conte
  Salah   |  29 |   223 | Egypt     | Liverpool    | Klopp
+
